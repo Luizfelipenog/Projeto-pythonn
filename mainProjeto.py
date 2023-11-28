@@ -218,4 +218,5 @@ class Main(QMainWindow, Ui_Main):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     show_main = Main()
+    print('luiz alterou')
     sys.exit(app.exec_())
