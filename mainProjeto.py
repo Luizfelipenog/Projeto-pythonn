@@ -12,8 +12,7 @@ from tela_ideias import Tela_ideias
 from tela_suporte import Tela_suporte
 from tela_vacina import Tela_Vacina
 
-from cliente import cliente
-
+from client.cliente import cliente
 
 class Ui_Main(QtWidgets.QWidget):
     def setupUi(self, Main):
@@ -64,7 +63,6 @@ class Ui_Main(QtWidgets.QWidget):
         self.QtStack.addWidget(self.stack6) #tela suporte
         self.QtStack.addWidget(self.stack7) #tela vacina
 
-
 class Main(QMainWindow, Ui_Main):
     def __init__(self):
         super(Main, self).__init__(None)
@@ -108,7 +106,6 @@ class Main(QMainWindow, Ui_Main):
         self.tela_vacina.pushButton_exit.clicked.connect(self.botaoSair)
         
         self.usuario = ""
-        
 
     def botaoCadastro(self):
         email = self.tela_cadastro.lineEdit.text()
@@ -127,7 +124,6 @@ class Main(QMainWindow, Ui_Main):
         else:
             QMessageBox.warning(None, 'Cadastro de Usuario', 'Preencha todos os campos!')
         
-
     def botaoLogin(self):
         email = self.tela_inicial.lineEdit.text()
         senha = self.tela_inicial.lineEdit_2.text()
@@ -164,7 +160,6 @@ class Main(QMainWindow, Ui_Main):
     def vacinasIdoso(self):
         pass
     
-
     def LimparCamposCadastro(self):
         self.tela_cadastro.lineEdit.setText('')
         self.tela_cadastro.lineEdit_2.setText('')
@@ -213,10 +208,7 @@ class Main(QMainWindow, Ui_Main):
     def botaoSair(self):
         exit(0)
            
-
-
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     show_main = Main()
-    print('Andreia alterou')
     sys.exit(app.exec_())
