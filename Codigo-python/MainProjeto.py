@@ -12,7 +12,8 @@ from tela_ideias import Tela_ideias
 from tela_suporte import Tela_suporte
 from tela_vacina import Tela_Vacina
 
-from client.cliente import cliente
+
+from Cliente.cliente import cliente
 
 class Ui_Main(QtWidgets.QWidget):
     def setupUi(self, Main):

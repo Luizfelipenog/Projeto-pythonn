@@ -15,10 +15,12 @@ class Cadastro:
         existe = self.busca(email)
         existe = self.busca(username)
         if (existe == None):
+            print('cadastra: email, ', email)
             self._cursor = criar_conexao('localhost', 'root', 'suasaude', self._pw)
             execute_query(self._cursor, 'INSERT INTO usuarios(email, username, senha, ano) VALUES (%s,%s,MD5(%s),%s)', (email, username, senha, ano))
             return True
         else:
+            print('cadastra: email, ', email)
             return False
 
     def busca(self, username):

@@ -29,7 +29,7 @@ def read_query(conexao, query, var=None):
     result = None
     try:
         cursor.execute(query, var)
-        result = cursor.fetchall()
+        result = cursor.fetchone()
         conexao.close()
         return result
     except Error as err:
