@@ -219,6 +219,12 @@ class Main(QMainWindow, Ui_Main):
         exit(0)
 
     def executarScriptSintomas(self):
+        """
+        Executa o script de análise de sintomas no site https://analisesintomas.com.
+
+        Obtém a lista de sintomas a partir da entrada do usuário, realiza a pesquisa
+        para cada sintoma na página web e exibe o resultado usando um QMessageBox.
+        """
         with sync_playwright() as p:
             navegador = p.chromium.launch(headless=True)
             pagina = navegador.new_page()
@@ -232,7 +238,6 @@ class Main(QMainWindow, Ui_Main):
 
             pagina.locator('xpath=//*[@id="message_send"]').click()
 
-            # Imprimir o XPath fornecido
             mensagem_xpath = '//*[@id="divResultadoDoencasDir"]/span[1]'
             mensagem_elemento = pagina.locator(mensagem_xpath)
             mensagem_texto = mensagem_elemento.inner_text()
@@ -245,28 +250,46 @@ class Main(QMainWindow, Ui_Main):
 
             QMessageBox.warning(None, 'Resultado da Análise de Sintomas', mensagem_completa)
 
-
-
-            # Aguardar um tempo para observar a interação (opcional)
-            #time.sleep(5)
-
     def obterListaSintomas(self, sintomas_str):
+        """
+        Obtém uma lista de sintomas a partir de uma string, onde os sintomas são
+        separados por vírgulas.
+
+        Args:
+            sintomas_str (str): Uma string contendo os sintomas separados por vírgulas.
+
+        Returns:
+            list: Uma lista de sintomas.
+        """
         lista_sintomas = sintomas_str.split(',')
         return lista_sintomas
 
     def sintomas(self, pagina, sintoma_nome):
+        """
+        Realiza a pesquisa de um sintoma na página web.
+
+        Args:
+            pagina: A página web onde a pesquisa será realizada.
+            sintoma_nome (str): O nome do sintoma a ser pesquisado.
+        """
         pagina.locator('xpath=//*[@id="sintomaPesquisa"]').click()
         pagina.fill('xpath=//*[@id="sintomaPesquisa"]', sintoma_nome)
         pagina.locator('xpath=//*[@id="btPesquisaSintoma"]').click()
         self.clicar(pagina)
 
     def clicar(self, pagina):
+        """
+        Realiza um clique em um elemento da página.
+
+        Args:
+            pagina: A página web onde o clique será realizado.
+        """
         elementos = pagina.locator('//td[contains(@class, "tdAzulClaro")][contains(@onclick, "adicionarSintomaLista")]')
 
         if elementos.count() > 0:
             primeiro_elemento = elementos.first
             primeiro_elemento.hover()
-            #time.sleep(1)
+            # time.sleep(1)
             primeiro_elemento.click()
 
 
