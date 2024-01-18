@@ -4,8 +4,8 @@ class Cadastro:
     __slots__ = ['_cursor', '_sql', '_pw']
 
     def __init__(self):
-        self._pw = '23ropo2New'
-        self._cursor = criar_conexao('localhost', 'root', 'suasaude', self._pw)
+        self._pw = '12345'
+        self._cursor = criar_conexao('127.0.0.1', 'root', 'suasaude', self._pw)
         self._sql = """CREATE TABLE IF NOT EXISTS usuarios(email VARCHAR(64) PRIMARY KEY, username VARCHAR(40) NOT NULL,
         senha VARCHAR(32) NOT NULL, ano integer NOT NULL, UNIQUE (username));"""
         execute_query(self._cursor, self._sql)

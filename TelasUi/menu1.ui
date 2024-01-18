@@ -41,7 +41,7 @@ color: rgb(108, 168, 218);</string>
    <widget class="QPushButton" name="botaovoltar">
     <property name="geometry">
      <rect>
-      <x>500</x>
+      <x>10</x>
       <y>400</y>
       <width>121</width>
       <height>41</height>
@@ -81,7 +81,7 @@ border-radius: 5px;
    <widget class="QPushButton" name="botaosair">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>500</x>
       <y>400</y>
       <width>121</width>
       <height>41</height>
@@ -215,7 +215,7 @@ border-radius: 5px;
 </string>
     </property>
     <property name="text">
-     <string>Cadastro de vacinas</string>
+     <string>Vacina!</string>
     </property>
    </widget>
    <widget class="QPushButton" name="botaonos">

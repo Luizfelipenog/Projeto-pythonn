@@ -86,7 +86,7 @@
    <widget class="QPushButton" name="botaosair">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>500</x>
       <y>400</y>
       <width>121</width>
       <height>41</height>
@@ -126,7 +126,7 @@ border-radius: 5px;
    <widget class="QPushButton" name="botaovoltar">
     <property name="geometry">
      <rect>
-      <x>500</x>
+      <x>10</x>
       <y>400</y>
       <width>121</width>
       <height>41</height>
@@ -166,9 +166,9 @@ border-radius: 5px;
    <widget class="QLabel" name="label_principal">
     <property name="geometry">
      <rect>
-      <x>215</x>
-      <y>80</y>
-      <width>251</width>
+      <x>170</x>
+      <y>90</y>
+      <width>321</width>
       <height>50</height>
      </rect>
     </property>
@@ -180,145 +180,38 @@ color: rgb(108, 168, 218);</string>
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:18pt; font-weight:600;&quot;&gt;Pesquisa de Sintomas!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboregio">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>160</y>
-      <width>111</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">
-font: 12pt &quot;Constantia&quot;;</string>
-    </property>
-    <item>
-     <property name="text">
-      <string>Nordeste</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Nenhum</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Sudeste</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Sul</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Centro-Oeste</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Norte</string>
-     </property>
-    </item>
-   </widget>
    <widget class="QLabel" name="label_regiao">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>30</x>
       <y>160</y>
-      <width>171</width>
+      <width>321</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Selecione sua região:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Quantos Sintomas deseja relatar?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_tempo">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>30</x>
       <y>200</y>
-      <width>181</width>
+      <width>201</width>
       <height>31</height>
      </rect>
     </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Tempo dos sintomas:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Quais sintomas?&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
-   </widget>
-   <widget class="QComboBox" name="combotempo">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>200</y>
-      <width>111</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">
-font: 12pt &quot;Constantia&quot;;</string>
-    </property>
-    <item>
-     <property name="text">
-      <string>1-4 Dias</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Não sei dizer</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>5-6 Dias</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>1 Semana</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>2 Semanas</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Mais de 2 semanas </string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Mais de 1 mês</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Mais de 1 ano</string>
-     </property>
-    </item>
    </widget>
    <widget class="QPushButton" name="botaopesquisa">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>300</y>
-      <width>171</width>
+      <x>230</x>
+      <y>350</y>
+      <width>211</width>
       <height>41</height>
      </rect>
     </property>
@@ -344,50 +237,49 @@ border-radius: 5px;
      <string>Pesquisa Guiada!</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_sexo">
-    <property name="geometry">
-     <rect>
-      <x>190</x>
-      <y>240</y>
-      <width>111</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Sexo biologico:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="combosexo">
+   <widget class="QLineEdit" name="quantsintomas">
     <property name="geometry">
      <rect>
       <x>350</x>
-      <y>240</y>
-      <width>111</width>
+      <y>160</y>
+      <width>241</width>
       <height>31</height>
      </rect>
     </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit{
+background-color: rgb(108, 168, 218);
+border-radius:5px;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>Ex: 1 ou 2, 3</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="quantsintomas_2">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>200</y>
+      <width>261</width>
+      <height>81</height>
+     </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">
-font: 12pt &quot;Constantia&quot;;</string>
+     <string notr="true">QLineEdit{
+background-color: rgb(108, 168, 218);
+border-radius:5px;
+}</string>
     </property>
-    <item>
-     <property name="text">
-      <string>Masculino</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Feminino</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>Prefiro-não-dizer</string>
-     </property>
-    </item>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>Ex: febre, gripe.</string>
+    </property>
    </widget>
   </widget>
  </widget>

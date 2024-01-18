@@ -63,7 +63,7 @@ class Tela_Vacina(object):
         self.label_5.setStyleSheet("")
         self.label_5.setText("")
         self.label_5.setTextFormat(QtCore.Qt.AutoText)
-        self.label_5.setPixmap(QtGui.QPixmap("logo-versão_completa-removebg-preview.png"))
+        self.label_5.setPixmap(QtGui.QPixmap("../Imagens/logo-versão_completa-removebg-preview.png"))
         self.label_5.setScaledContents(True)
         self.label_5.setObjectName("label_5")
         self.label_6 = QtWidgets.QLabel(self.page_inicio)
