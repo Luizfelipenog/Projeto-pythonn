@@ -1,3 +1,4 @@
+from PyQt5.QtWidgets import QMessageBox
 from playwright.sync_api import sync_playwright
 import time
 
@@ -19,7 +20,7 @@ def clicar(pagina):
         primeiro_elemento.click()
 
 
-def sintoma(pagina):
+def sintomas(pagina):
     sintoma_nome = input("Digite o nome do sintoma:\n")
     pagina.locator('xpath=//*[@id="sintomaPesquisa"]').click()
     pagina.fill('xpath=//*[@id="sintomaPesquisa"]', sintoma_nome)
@@ -41,7 +42,9 @@ with sync_playwright() as p:
     mensagem_xpath = '//*[@id="divResultadoDoencasDir"]/span[1]'
     mensagem_elemento = pagina.locator(mensagem_xpath)
     mensagem_texto = mensagem_elemento.inner_text()  # Correção aqui, usando inner_text() em vez de text_content()
-    print(mensagem_texto)
+    #print(mensagem_texto)
+    mensagem=QMessageBox()
+    mensagem.warning(mensagem,'Doença:',mensagem_texto)
     mensagem_probabilidade = '//*[@id="divResultadoDoencasDir"]/span[2]'
     mensagem_elemento2 = pagina.locator(mensagem_probabilidade)
     mensagem_texto2 = mensagem_elemento2.inner_text()  # Correção aqui, usando inner_text() em vez de text_content()
@@ -51,3 +54,4 @@ with sync_playwright() as p:
 
     # Aguardar um tempo para observar a interação (opcional)
     time.sleep(5)
+

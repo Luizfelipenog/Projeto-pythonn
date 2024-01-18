@@ -11,6 +11,9 @@ from tela_sobrenos import Tela_Sobrenos
 from tela_ideias import Tela_ideias
 from tela_suporte import Tela_suporte
 from tela_vacina import Tela_Vacina
+from PyQt5.QtWidgets import QMessageBox
+from playwright.sync_api import sync_playwright
+import time
 
 
 from Cliente.cliente import cliente
@@ -85,6 +88,7 @@ class Main(QMainWindow, Ui_Main):
        
         self.tela_pesquisa.botaovoltar.clicked.connect(self.botaoVoltar)
         self.tela_pesquisa.botaosair.clicked.connect(self.botaoSair)
+        self.tela_pesquisa.botaopesquisa.clicked.connect(self.executarScriptSintomas)
 
         self.tela_sobrenos.botaovoltar.clicked.connect(self.botaoVoltar)
         self.tela_sobrenos.botaosair.clicked.connect(self.botaoSair)
@@ -108,6 +112,10 @@ class Main(QMainWindow, Ui_Main):
         
         self.usuario = ""
 
+
+
+
+
     def botaoCadastro(self):
         email = self.tela_cadastro.lineEdit.text()
         nome = self.tela_cadastro.lineEdit_2.text()
@@ -128,7 +136,7 @@ class Main(QMainWindow, Ui_Main):
     def botaoLogin(self):
         email = self.tela_inicial.lineEdit.text()
         senha = self.tela_inicial.lineEdit_2.text()
-        
+
         if not(email == '' or senha == ''):
             result = cliente('1', email, senha, ' ', ' ')
             self.LimparCamposLogin()
@@ -136,6 +144,7 @@ class Main(QMainWindow, Ui_Main):
                 self.QtStack.setCurrentIndex(2)  # Chama a tela de menu
             else:
                 QMessageBox.information(None, 'Login', 'Usuario ou Senha incorretos!')
+
         else:
             QMessageBox.warning(None, 'Login', 'Preencha todos os campos!')
         
@@ -208,7 +217,59 @@ class Main(QMainWindow, Ui_Main):
 
     def botaoSair(self):
         exit(0)
-           
+
+    def executarScriptSintomas(self):
+        with sync_playwright() as p:
+            navegador = p.chromium.launch(headless=True)
+            pagina = navegador.new_page()
+            pagina.goto("https://analisesintomas.com")
+
+            sintomas_str = self.tela_pesquisa.quantsintomas.text()
+            sintomas = self.obterListaSintomas(sintomas_str)
+
+            for sintoma_nome in sintomas:
+                self.sintomas(pagina, sintoma_nome)
+
+            pagina.locator('xpath=//*[@id="message_send"]').click()
+
+            # Imprimir o XPath fornecido
+            mensagem_xpath = '//*[@id="divResultadoDoencasDir"]/span[1]'
+            mensagem_elemento = pagina.locator(mensagem_xpath)
+            mensagem_texto = mensagem_elemento.inner_text()
+
+            mensagem_probabilidade_xpath = '//*[@id="divResultadoDoencasDir"]/span[2]'
+            mensagem_elemento2 = pagina.locator(mensagem_probabilidade_xpath)
+            mensagem_texto2 = mensagem_elemento2.inner_text()
+
+            mensagem_completa = f'A possível doença: {mensagem_texto}\nProbabilidade: {mensagem_texto2}'
+
+            QMessageBox.warning(None, 'Resultado da Análise de Sintomas', mensagem_completa)
+
+
+
+            # Aguardar um tempo para observar a interação (opcional)
+            #time.sleep(5)
+
+    def obterListaSintomas(self, sintomas_str):
+        lista_sintomas = sintomas_str.split(',')
+        return lista_sintomas
+
+    def sintomas(self, pagina, sintoma_nome):
+        pagina.locator('xpath=//*[@id="sintomaPesquisa"]').click()
+        pagina.fill('xpath=//*[@id="sintomaPesquisa"]', sintoma_nome)
+        pagina.locator('xpath=//*[@id="btPesquisaSintoma"]').click()
+        self.clicar(pagina)
+
+    def clicar(self, pagina):
+        elementos = pagina.locator('//td[contains(@class, "tdAzulClaro")][contains(@onclick, "adicionarSintomaLista")]')
+
+        if elementos.count() > 0:
+            primeiro_elemento = elementos.first
+            primeiro_elemento.hover()
+            #time.sleep(1)
+            primeiro_elemento.click()
+
+
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     show_main = Main()
