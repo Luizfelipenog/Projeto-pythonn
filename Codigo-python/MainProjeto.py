@@ -1,5 +1,6 @@
 import sys
 
+import pyautogui
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox
 
@@ -219,23 +220,22 @@ class Main(QMainWindow, Ui_Main):
         exit(0)
 
     def executarScriptSintomas(self):
-        """
-        Executa o script de análise de sintomas no site https://analisesintomas.com.
-
-        Obtém a lista de sintomas a partir da entrada do usuário, realiza a pesquisa
-        para cada sintoma na página web e exibe o resultado usando um QMessageBox.
-        """
         with sync_playwright() as p:
-            navegador = p.chromium.launch(headless=True)
+            navegador = p.chromium.launch(headless=False)
             pagina = navegador.new_page()
             pagina.goto("https://analisesintomas.com")
 
-            sintomas_str = self.tela_pesquisa.quantsintomas.text()
+
+
+            #pegando o nome dos sintomas
+            sintomas_str = self.tela_pesquisa.quantsintomas_2.text()
+            #transformando eles em uma lista
             sintomas = self.obterListaSintomas(sintomas_str)
 
             for sintoma_nome in sintomas:
                 self.sintomas(pagina, sintoma_nome)
 
+            #clicando no diagnostico
             pagina.locator('xpath=//*[@id="message_send"]').click()
 
             mensagem_xpath = '//*[@id="divResultadoDoencasDir"]/span[1]'
@@ -248,49 +248,54 @@ class Main(QMainWindow, Ui_Main):
 
             mensagem_completa = f'A possível doença: {mensagem_texto}\nProbabilidade: {mensagem_texto2}'
 
-            QMessageBox.warning(None, 'Resultado da Análise de Sintomas', mensagem_completa)
+            QMessageBox.information(None, 'Resultado da Análise de Sintomas', mensagem_completa)
+
+            # Aguarda 5 segundos antes de fechar o navegador (você pode ajustar isso conforme necessário)
+            time.sleep(1)
+            navegador.close()
 
     def obterListaSintomas(self, sintomas_str):
-        """
-        Obtém uma lista de sintomas a partir de uma string, onde os sintomas são
-        separados por vírgulas.
-
-        Args:
-            sintomas_str (str): Uma string contendo os sintomas separados por vírgulas.
-
-        Returns:
-            list: Uma lista de sintomas.
-        """
-        lista_sintomas = sintomas_str.split(',')
-        return lista_sintomas
+        return sintomas_str.split(',')
 
     def sintomas(self, pagina, sintoma_nome):
-        """
-        Realiza a pesquisa de um sintoma na página web.
+        # Clica na barra de pesquisa
+        barra_pesquisa = pagina.locator('xpath=//*[@id="sintomaPesquisa"]')
+        barra_pesquisa.click()
+        # Limpa a barra de pesquisa e remove espaços em branco
+        barra_pesquisa.clear()
+        sintoma_nome = sintoma_nome.strip()
+        # Escreve o nome na barra de pesquisa
+        barra_pesquisa.fill(sintoma_nome)
+        # Clica na barra de pesquisar
 
-        Args:
-            pagina: A página web onde a pesquisa será realizada.
-            sintoma_nome (str): O nome do sintoma a ser pesquisado.
-        """
-        pagina.locator('xpath=//*[@id="sintomaPesquisa"]').click()
-        pagina.fill('xpath=//*[@id="sintomaPesquisa"]', sintoma_nome)
         pagina.locator('xpath=//*[@id="btPesquisaSintoma"]').click()
+        time.sleep(1)
+
         self.clicar(pagina)
 
     def clicar(self, pagina):
-        """
-        Realiza um clique em um elemento da página.
+        try:
+            elemento = pagina.locator(
+                '//td[contains(@class, "tdAzulClaro")][contains(@onclick, "adicionarSintomaLista")]')
 
-        Args:
-            pagina: A página web onde o clique será realizado.
-        """
-        elementos = pagina.locator('//td[contains(@class, "tdAzulClaro")][contains(@onclick, "adicionarSintomaLista")]')
+            if elemento.count() > 0:
+                primeiro_elemento = elemento.first
+                time.sleep(2)
 
-        if elementos.count() > 0:
-            primeiro_elemento = elementos.first
-            primeiro_elemento.hover()
-            # time.sleep(1)
-            primeiro_elemento.click()
+                # Move o mouse para o primeiro elemento
+                primeiro_elemento.hover()
+
+                # Espera um pouco para garantir que o mouse tenha se movido antes do clique
+                time.sleep(1)
+
+                # Clica no elemento
+                primeiro_elemento.click()
+                time.sleep(1)
+            else:
+                QMessageBox.information(None, 'Sintoma não encontrado', 'O sintoma não foi encontrado na página.')
+
+        except Exception as e:
+            print(f"Erro ao clicar: {e}")
 
 
 if __name__ == '__main__':
